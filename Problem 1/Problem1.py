@@ -21,7 +21,3 @@ def sum_to_n_c(n):
   return int(sum)
 
 
-print(sum_to_n_a(-1)) 
-print(sum_to_n_b(5.5)) 
-print(sum_to_n_c(5)) 
-
