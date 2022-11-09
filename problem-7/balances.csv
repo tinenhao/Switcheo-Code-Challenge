@@ -1,0 +1,8 @@
+id ,address,denom,amount,block_height
+8,e,tmz,100000,733569
+7,e,tmz,100000,733456
+6,f,tmz,20,733761
+4,d,swth,20,733759
+3,c,swth,10000000000,733758
+2,b,usdc,20,733757
+1,a,usdc,500000000,733755
