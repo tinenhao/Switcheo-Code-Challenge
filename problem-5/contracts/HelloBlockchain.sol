@@ -1,37 +1,22 @@
 pragma solidity >=0.4.25 <0.9.0;
+pragma experimental ABIEncoderV2;
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract HelloBlockchain {
-    enum StateType { Request, Respond }
-
-    StateType public  State;
-    address public  Requestor;
-    address public  Responder;
-
-    string public RequestMessage;
-    string public ResponseMessage;
-
-    constructor(string memory message) {
-        Requestor = msg.sender;
-        RequestMessage = message;
-        State = StateType.Request;
+    struct token {
+        address token;
+        uint256 balance;
     }
 
-    // call this function to send a request
-    function SendRequest(string memory requestMessage) public {
+    token[] res;
 
-        if (Requestor != msg.sender) {
-            revert();
+    function getBalances(address walletAddress, address[] memory tokenAddress) public returns(token[] memory){
+        for (uint i = 0; i < tokenAddress.length; i++) {
+            // (bool success, bytes memory data) = address(tokenAddress[i]).call(abi.encodeWithSignature("balanceOf(address)", walletAddress));
+            // uint256 amount = abi.decode(data, (uint256));
+            uint256 amount = IERC20(tokenAddress[i]).balanceOf(walletAddress);
+            res.push(token(tokenAddress[i], amount));
         }
-
-        RequestMessage = requestMessage;
-        State = StateType.Request;
-    }
-
-    // call this function to send a response
-    function SendResponse(string memory responseMessage) public {
-
-        Responder = msg.sender;
-        ResponseMessage = responseMessage;
-        State = StateType.Respond;
+        return res;
     }
 }
